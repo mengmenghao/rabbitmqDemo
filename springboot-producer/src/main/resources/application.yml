@@ -1,0 +1,14 @@
+spring:
+  rabbitmq:
+    host: 192.168.3.23
+    port: 5672
+    username: lmh
+    password: 123456
+    virtual-host: /test
+    connection-timeout: 1000ms
+    # 返回机制需要开启的参数
+    publisher-returns: true
+    template:
+      mandatory: true
+    # 确认机制需要配置是单个确认还是批量确认，其他的在springboot2.x后已经默认开启
+    publisher-confirm-type: correlated
