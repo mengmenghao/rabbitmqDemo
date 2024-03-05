@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:rabbit="http://www.springframework.org/schema/rabbit"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd http://www.springframework.org/schema/rabbit http://www.springframework.org/schema/rabbit/spring-rabbit.xsd">
+    <!--设置连接工厂，配置基本参数-->
+    <rabbit:connection-factory id="connectionFactory"
+                               host="192.168.3.23"
+                               port="5672"
+                               username="lmh"
+                               password="123456"
+                               virtual-host="/test"/>
+    <!--
+    fanout-exchange | direct-exchange | topic-exchange
+    声明一个名为topicExchange的交换机，如果这个交换机不存在，则自动创建-->
+    <rabbit:topic-exchange name="topicExchange" auto-declare="true"/>
+    <!--Spring为我们封装了一个RabbitTemplate来简化生产者发送数据的过程，对常用方法进行了封装-->
+    <rabbit:template id="template" connection-factory="connectionFactory"
+                     exchange="topicExchange"/>
+
+    <!--在生产者中配置template对象，用于发送数据-->
+    <bean id="newsProducer" class="com.lmh.rabbit.exchange.NewsProducer">
+        <property name="rabbitTemplate" ref="template"/>
+    </bean>
+
+    <!--所有产生的数据在rabbit可视化控制台中显示-->
+    <rabbit:admin id="rabbitAdmin" connection-factory="connectionFactory"/>
+</beans>
