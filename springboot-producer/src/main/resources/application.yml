@@ -1,3 +1,4 @@
+
 spring:
   rabbitmq:
     host: 192.168.3.23
@@ -12,3 +13,5 @@ spring:
       mandatory: true
     # 确认机制需要配置是单个确认还是批量确认，其他的在springboot2.x后已经默认开启
     publisher-confirm-type: correlated
+server:
+  port: 8000

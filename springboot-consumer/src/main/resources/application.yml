@@ -1,0 +1,16 @@
+server:
+  port: 8081
+spring:
+  rabbitmq:
+    host: 192.168.3.23
+    port: 5672
+    username: lmh
+    password: 123456
+    virtual-host: /test
+    connection-timeout: 1000ms
+
+    listener:
+      simple:
+        acknowledge-mode: manual
+        concurrency: 1
+        max-concurrency: 5
